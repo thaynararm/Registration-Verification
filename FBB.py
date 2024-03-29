@@ -3,14 +3,9 @@ import pyodbc
 import sqlalchemy
 import json
 
-#Conexão com o banco de dados
-# engine = pyodbc.connect('Driver={SQL Server};'
-#                       'Server=DESKTOP-EK2R2FH;'
-#                       'Database=TesteFBB;'
-#                       'Trusted_Connection=yes;')
 
-server_name = 'DESKTOP-EK2R2FH'
-database_name = 'TesteFBB'
+server_name = 'nome_servidor'
+database_name = 'nome_banco_de_dados'
 driver = 'ODBC+Driver+17+for+SQL+Server'
 conn_str = f'mssql://@{server_name}/{database_name}?driver={driver}'
 
@@ -20,11 +15,14 @@ engine = sqlalchemy.create_engine(conn_str)
 sql_query = "SELECT * FROM teste"
 df = pd.read_sql_query(sql_query, engine)
 
+
 #Extração do json
 json_df = pd.json_normalize(df['snapshot'].apply(json.loads))
 
+
 #Dados gerais da entidade
 df_entidade = json_df[['id', 'ds_nome', 'dt_data_expedicao_cnpj', 'ds_nome_fantasia', 'ds_email']]
+
 
 #Dados de endereço da entidade
 endereco = pd.DataFrame(json_df['endereco'])
@@ -76,33 +74,13 @@ df_merged = pd.merge(df_merged, df_usuarios, left_on='id', right_on='fk_entidade
 df_merged = pd.DataFrame(df_merged)
 
 #Renomeação das colunas
-df_merged.columns = ['id_entidade', 'ds_nome_entidade', 'dt_data_expedicao_cnpj_entidade', 'ds_nome_fantasia_entidade',
-    'ds_email_entidade', 'pivot.fk_entidade__endereco', 'ds_cep_entidade',
-    'ds_rua_entidade', 'pivot.fk_entidade_dirigente', 'ds_nome_dirigente', 'bt_ativo_dirigente',
-    'ds_estado_civil_dirigente', 'ds_gender_dirigente', 'ds_profissao_dirigente', 'ds_cpf_dirigente',
-    'ds_nacionalidade_dirigente', 'ds_rg_dirigente', 'ds_naturalidade_dirigente', 'ds_uf_dirigente',
-    'ds_orgao_emissor_dirigente', 'ds_rg_uf_dirigente', 'endereco.ds_cep_dirigente', 'endereco.ds_rua_dirigente',
-    'endereco.ds_numero_dirigente', 'contato.ds_telefone_dirigente', 'ds_email_dirigente',
-    'dt_inicio_mandato_dirigente', 'dt_fim_mandato_dirigente', 'cargo.ds_codigo_dirigente',
-    'cargo.ds_descricao_dirigente', 'bt_assinatura_entidade_dirigente',
-    'bt_assinatura_requerida_dirigente', 'bt_representante_legal_dirigente', 'fk_entidade_usuarios',
-    'ds_nome_usuario', 'ds_cpf_usuario', 'ds_login_usuario', 'ds_telefone_usuario', 'ds_email_usuario',
-    'bt_ativo_usuario']
+df_merged.columns = ['id_entidade', 'ds_nome_entidade', 'dt_data_expedicao_cnpj_entidade', 'ds_nome_fantasia_entidade', 'ds_email_entidade', 'pivot.fk_entidade__endereco', 'ds_cep_entidade', 'ds_rua_entidade', 'pivot.fk_entidade_dirigente', 'ds_nome_dirigente', 'bt_ativo_dirigente', 'ds_estado_civil_dirigente', 'ds_gender_dirigente', 'ds_profissao_dirigente', 'ds_cpf_dirigente', 'ds_nacionalidade_dirigente', 'ds_rg_dirigente', 'ds_naturalidade_dirigente', 'ds_uf_dirigente', 'ds_orgao_emissor_dirigente', 'ds_rg_uf_dirigente', 'endereco.ds_cep_dirigente', 'endereco.ds_rua_dirigente', 'endereco.ds_numero_dirigente', 'contato.ds_telefone_dirigente', 'ds_email_dirigente','dt_inicio_mandato_dirigente', 'dt_fim_mandato_dirigente', 'cargo.ds_codigo_dirigente', 'cargo.ds_descricao_dirigente', 'bt_assinatura_entidade_dirigente', 'bt_assinatura_requerida_dirigente', 'bt_representante_legal_dirigente', 'fk_entidade_usuarios', 'ds_nome_usuario', 'ds_cpf_usuario', 'ds_login_usuario', 'ds_telefone_usuario', 'ds_email_usuario', 'bt_ativo_usuario']
 
 
 #Exclusão de colunas repetidas
-df_merged = df_merged[['id_entidade', 'ds_nome_entidade', 'dt_data_expedicao_cnpj_entidade', 'ds_nome_fantasia_entidade',
-    'ds_email_entidade', 'ds_cep_entidade',
-    'ds_rua_entidade', 'ds_nome_dirigente', 'bt_ativo_dirigente',
-    'ds_estado_civil_dirigente', 'ds_gender_dirigente', 'ds_profissao_dirigente', 'ds_cpf_dirigente',
-    'ds_nacionalidade_dirigente', 'ds_rg_dirigente', 'ds_naturalidade_dirigente', 'ds_uf_dirigente',
-    'ds_orgao_emissor_dirigente', 'ds_rg_uf_dirigente', 'endereco.ds_cep_dirigente', 'endereco.ds_rua_dirigente',
-    'endereco.ds_numero_dirigente', 'contato.ds_telefone_dirigente', 'ds_email_dirigente',
-    'dt_inicio_mandato_dirigente', 'dt_fim_mandato_dirigente', 'cargo.ds_codigo_dirigente',
-    'cargo.ds_descricao_dirigente', 'bt_assinatura_entidade_dirigente',
-    'bt_assinatura_requerida_dirigente', 'bt_representante_legal_dirigente',
-    'ds_nome_usuario', 'ds_cpf_usuario', 'ds_login_usuario', 'ds_telefone_usuario', 'ds_email_usuario',
-    'bt_ativo_usuario']]
+df_merged = df_merged[['id_entidade', 'ds_nome_entidade', 'dt_data_expedicao_cnpj_entidade', 'ds_nome_fantasia_entidade','ds_email_entidade', 'ds_cep_entidade', 'ds_rua_entidade', 'ds_nome_dirigente', 'bt_ativo_dirigente', 'ds_estado_civil_dirigente', 'ds_gender_dirigente', 'ds_profissao_dirigente', 'ds_cpf_dirigente', 'ds_nacionalidade_dirigente', 'ds_rg_dirigente', 'ds_naturalidade_dirigente', 'ds_uf_dirigente', 'ds_orgao_emissor_dirigente', 'ds_rg_uf_dirigente', 'endereco.ds_cep_dirigente', 'endereco.ds_rua_dirigente',
+    'endereco.ds_numero_dirigente', 'contato.ds_telefone_dirigente', 'ds_email_dirigente', 'dt_inicio_mandato_dirigente', 'dt_fim_mandato_dirigente', 'cargo.ds_codigo_dirigente',
+    'cargo.ds_descricao_dirigente', 'bt_assinatura_entidade_dirigente', 'bt_assinatura_requerida_dirigente', 'bt_representante_legal_dirigente', 'ds_nome_usuario', 'ds_cpf_usuario', 'ds_login_usuario', 'ds_telefone_usuario', 'ds_email_usuario', 'bt_ativo_usuario']]
 
 
 #Verifica se o nome de usuário é diferente do nome da entidade
@@ -110,7 +88,6 @@ df_merged = pd.DataFrame(df_merged[df_merged['ds_nome_entidade'] != df_merged['d
 
 #Verifica quais campos são nulos
 colunas_com_valores_nulos = df_merged.columns[df_merged.isnull().any()].tolist()
-
 
 
 # Verifica se todas as colunas estão preenchidas para cada linha
@@ -126,10 +103,6 @@ df_merged = pd.DataFrame(df_merged[['id_entidade', 'colunas_nulas']])
 # Converter para string apenas se não for do tipo string
 df_merged['colunas_nulas'] = df_merged['colunas_nulas'].apply(lambda x: str(x) if not isinstance(x, str) else x)
 
-
-# df_merged['colunas_nulas'] = df_merged['colunas_nulas'].astype(str)
-
-print(df_merged.info())
 
 # Salve o DataFrame no SQL Server
 df_merged.to_sql(name='tb_campos_nulos_cadastro_entidade', con=engine, if_exists='replace', index=False)
