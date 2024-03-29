@@ -1,7 +1,7 @@
 # Verificador de Preenchimento de Cadastro
 Este script Python foi desenvolvido com o objetivo de verificar se um cadastro em uma plataforma está completamente preenchido ou se ainda faltam algumas informações necessárias. O propósito é criar uma ferramenta em POWER BI que permita monitorar a situação atual do cadastro de cada entidade em um banco de dados, visando identificar aquelas que não finalizaram o preenchimento de todas as informações.
 
-### Funcionamento
+## Funcionamento
 **Conexão com o Banco de Dados:** O script estabelece uma conexão com um banco de dados SQL Server, utilizando as bibliotecas pyodbc e sqlalchemy.
 
 **Importação da Tabela:** Uma tabela é importada do banco de dados para um DataFrame do Pandas.
@@ -26,7 +26,7 @@ Este script Python foi desenvolvido com o objetivo de verificar se um cadastro e
 
 **Tabela Final e Salvamento no Banco de Dados:** O DataFrame final, contendo apenas as colunas de identificação da entidade e a informação sobre campos nulos, é salvo de volta no banco de dados com o nome "tb_campos_nulos_cadastro_entidade".
 
-### Utilização
+## Utilização
 Para utilizar este script, é necessário ter acesso ao banco de dados onde estão armazenados os cadastros das entidades. A conexão com o banco de dados deve ser configurada adequadamente no script, fornecendo o nome do servidor, o nome do banco de dados e o driver necessário.
 
 Após a execução do script, a tabela resultante estará disponível no banco de dados, permitindo a análise da situação do cadastro de cada entidade.
