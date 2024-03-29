@@ -12,7 +12,7 @@ conn_str = f'mssql://@{server_name}/{database_name}?driver={driver}'
 engine = sqlalchemy.create_engine(conn_str)
 
 #Importa a tabela
-sql_query = "SELECT * FROM teste"
+sql_query = "SELECT * FROM nome_da_tabela"
 df = pd.read_sql_query(sql_query, engine)
 
 
